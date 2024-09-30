@@ -18,4 +18,10 @@ public class HelloWorld implements Runnable{
         System.out.println(msg);
     }
 
+    public static void main(String[] args) {
+        CommandLine cli = new CommandLine(new HelloWorld());
+        int exitCode = cli.execute(args);
+        System.exit(exitCode);
+    }
+
 }
