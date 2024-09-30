@@ -4,7 +4,7 @@ public class Bill {
 
     private double price;
 
-    public Bill(double price){
+    public Bill(double price) {
         this.price = price;
     }
 
@@ -20,11 +20,22 @@ public class Bill {
         return price / people;
     }
 
+    public double tip(String serviceQuality) {
+        if (serviceQuality.equals("great")){
+            return price * 0.2;
+        }
+        else if (serviceQuality.equals("ok")){
+            return price * 0.1;
+        }
+        else return 0;
 
-    // Ask Charlie to explain
-//    @Override
-//    public String toString() {
-//        return "Bill{" +
-//                ", price=" + price +
-//                '}';
+    }
+
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                ", price=" + price +
+                '}';
+    }
 }

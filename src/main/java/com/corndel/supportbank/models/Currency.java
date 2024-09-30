@@ -26,15 +26,15 @@ public class Currency {
             }
         } else if (currentCurrencyType.equals("USD")) {
             if (exchangeCurrencyType.equals("GBP")) {
-                exchangeValue = value * 50;
+                exchangeValue = value / 5;
             } else if (exchangeCurrencyType.equals("EURO")) {
                 exchangeValue = value * 100;
             }
         } else if (currentCurrencyType.equals("EURO")) {
             if (exchangeCurrencyType.equals("GBP")) {
-                exchangeValue = value * 20;
+                exchangeValue = value / 10;
             } else if (exchangeCurrencyType.equals("USD")) {
-                exchangeValue = value * 500;
+                exchangeValue = value / 100;
             }
         }
         return exchangeValue;
