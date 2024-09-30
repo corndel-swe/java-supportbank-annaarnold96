@@ -18,6 +18,6 @@ public class CurrencyConverterSubcommand implements Runnable{
     @Override
     public void run() {
         Currency exchange = new Currency(value);
-        System.out.println(value + " in " + currentCurrencyType + " will be " + exchange + " " + exchangeCurrencyType);
+        System.out.println(value + " in " + currentCurrencyType + " will be " + exchange.convert(currentCurrencyType,exchangeCurrencyType) + " " + exchangeCurrencyType);
     }
 }
