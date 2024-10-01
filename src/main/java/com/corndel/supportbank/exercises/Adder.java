@@ -39,6 +39,7 @@ public class Adder {
       System.err.println("Something went wrong");
       return 0;
     }
+
   }
 
   /**
@@ -48,5 +49,7 @@ public class Adder {
   public static void main(String[] args){
     Adder adder = new Adder();
     System.out.println(adder.add("nums.txt"));
+
+
   }
 }
