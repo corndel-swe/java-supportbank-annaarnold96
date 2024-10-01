@@ -7,7 +7,7 @@ import java.util.List;
 // import java.nio.file.*;
 // import java.util.List;
 
-// import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Element {
   /**
@@ -23,16 +23,19 @@ public class Element {
     // TODO: Read the .json file as a string
     // Hint: Use Paths.get() and Files.readAllLines()
     // Hint: Use String.join()
-    var filePath = Paths.get("src","data", fileName);
+    var filePath = Paths.get("src","data","elements", fileName);
     List<String> lines = Files.readAllLines(filePath);
-    String stringList = String.join(lines);
-    
+    String stringList = String.join("",lines);
+
+
 
     // TODO: Convert the json to an instance of Element
     // Hint: Use Jackson's ObjectMapper to map the json to Element.class
+    ObjectMapper objectMapper = new ObjectMapper();
+    Element json = objectMapper.readValue(stringList, Element.class);
 
     // TODO: Return the Element
-    return null;
+    return json;
   }
 
   /**
