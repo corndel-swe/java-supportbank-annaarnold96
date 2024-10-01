@@ -1,6 +1,9 @@
 package com.corndel.supportbank.exercises;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 // import java.nio.file.*;
 // import java.util.List;
 
@@ -20,6 +23,10 @@ public class Element {
     // TODO: Read the .json file as a string
     // Hint: Use Paths.get() and Files.readAllLines()
     // Hint: Use String.join()
+    var filePath = Paths.get("src","data", fileName);
+    List<String> lines = Files.readAllLines(filePath);
+    String stringList = String.join(lines);
+    
 
     // TODO: Convert the json to an instance of Element
     // Hint: Use Jackson's ObjectMapper to map the json to Element.class
