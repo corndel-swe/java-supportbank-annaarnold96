@@ -21,7 +21,7 @@ public class CurrencyConverterSubcommand implements Runnable{
     public void run() {
         Currency exchange = new Currency(value);
 
-        HashMap currentExchangeRate = exchange.exchangeAPI();
+        HashMap currentExchangeRate = exchange.exchangeAPI(currentCurrencyType);
 
         System.out.println(value + " in " + currentCurrencyType + " will be " + exchange.convert(currentCurrencyType,exchangeCurrencyType,currentExchangeRate) + " " + exchangeCurrencyType);
     }

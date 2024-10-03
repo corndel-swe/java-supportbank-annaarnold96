@@ -15,6 +15,9 @@ import java.util.function.Consumer;
 @CommandLine.Command(name = "exchange")
 public class CurrencyExchangeListSubcommand implements Runnable{
 
+    @CommandLine.Parameters(index = "0")
+    private String currentCurrencyType;
+
 //    @CommandLine.Parameters(index = "0")
 //    private double value;
 
@@ -22,7 +25,7 @@ public class CurrencyExchangeListSubcommand implements Runnable{
     public void run() {
         Currency exchangeList = new Currency(0);
 
-        var mapOfRates = exchangeList.exchangeAPI();
+        var mapOfRates = exchangeList.exchangeAPI(currentCurrencyType);
         HashMap<String, Float> rates = new HashMap<>();
         rates = (HashMap<String, Float>) mapOfRates.get("rates");
         System.out.println(rates);

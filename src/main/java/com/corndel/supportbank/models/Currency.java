@@ -39,9 +39,9 @@ public class Currency {
 
         if (currentCurrencyType.equals("GBP")) {
             if (exchangeCurrencyType.equals("USD")) {
-                exchangeValue = value * 5;
+                exchangeValue = value * rates.get("USD");
             } else if (exchangeCurrencyType.equals("EUR")) {
-                exchangeValue = value * 10;
+                exchangeValue = value * rates.get("EUR");
             }
         } else if (currentCurrencyType.equals("USD")) {
             if (exchangeCurrencyType.equals("GBP")) {
@@ -51,9 +51,9 @@ public class Currency {
             }
         } else if (currentCurrencyType.equals("EUR")) {
             if (exchangeCurrencyType.equals("GBP")) {
-                exchangeValue = value / 10;
+                exchangeValue = value * rates.get("GBP");
             } else if (exchangeCurrencyType.equals("USD")) {
-                exchangeValue = value / 100;
+                exchangeValue = value * rates.get("USD");
             }
         }
         return exchangeValue;
