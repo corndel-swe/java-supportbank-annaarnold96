@@ -4,6 +4,13 @@ package com.corndel.supportbank.exercises;
 
 // import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import kong.unirest.Unirest;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 /**
  * This class represents a Pokemon. It uses Java's record syntax to
@@ -27,26 +34,65 @@ public class PokeAPI {
    */
   public static Pokemon getPokemonByName(String name) throws Exception {
     // TODO: Create the url by appending the name to the base url
-
+    String url = "https://pokeapi.co/api/v2/pokemon/" + name;
     // TODO: Make a GET request to the url
     // Hint: Use Unirest.get()
-
+    var response = Unirest.get(url).header("Accept", "application/json").asString();
     // TODO: Parse the response body into a Pokemon object
     // Hint: Use Jackson's ObjectMapper to map the response body to Pokemon.class
+    String json = response.getBody();
+    ObjectMapper mapper = new ObjectMapper();
+      // TODO: Return the Pokemon
+    return mapper.readValue(json, Pokemon.class);
+  }
 
-    // TODO: Return the Pokemon
-    return null;
+  public static Pokemon getPokemonByID(String id) throws Exception {
+    // TODO: Create the url by appending the name to the base url
+    String url = "https://pokeapi.co/api/v2/pokemon/" + id;
+    // TODO: Make a GET request to the url
+    // Hint: Use Unirest.get()
+    var response = Unirest.get(url).header("Accept", "application/json").asString();
+    // TODO: Parse the response body into a Pokemon object
+    // Hint: Use Jackson's ObjectMapper to map the response body to Pokemon.class
+    String json = response.getBody();
+    ObjectMapper mapper = new ObjectMapper();
+      // TODO: Return the Pokemon
+    return mapper.readValue(json, Pokemon.class);
   }
 
   /**
    * For debugging purposes..
    */
-  public static void main(String[] args) {
-    try {
-      Pokemon pokemon = getPokemonByName("pikachu");
-      System.out.println(pokemon);
-    } catch (Exception e) {
-      e.printStackTrace();
+//  public static void main(String[] args) {
+//    try {
+//      Pokemon pokemon = getPokemonByName("pikachu");
+//      System.out.println(pokemon);
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//  }
+//}
+
+public static void main(String[] args) {
+  List listOfPokemon = new ArrayList<>();
+
+  int lengthOfList = 10;
+
+  try {
+    for (var i = 0; i < lengthOfList; i++) {
+      Random rand = new Random();
+      int n = rand.nextInt(1000);
+      Pokemon pokemon = getPokemonByID(String.valueOf(n+1));
+      listOfPokemon.add(pokemon);
     }
+    }
+
+  catch(Exception e){
+    e.printStackTrace();
+  }
+  for (var i : listOfPokemon){
+
+    System.out.println(i);}
   }
 }
+
