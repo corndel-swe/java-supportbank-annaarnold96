@@ -4,6 +4,7 @@ package com.corndel.supportbank.exercises;
 
 // import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.Unirest;
 
@@ -46,7 +47,7 @@ public class PokeAPI {
     return mapper.readValue(json, Pokemon.class);
   }
 
-  public static Pokemon getPokemonByID(String id) throws Exception {
+  public static JsonNode getPokemonByID(String id) throws Exception {
     // TODO: Create the url by appending the name to the base url
     String url = "https://pokeapi.co/api/v2/pokemon/" + id;
     // TODO: Make a GET request to the url
@@ -57,7 +58,9 @@ public class PokeAPI {
     String json = response.getBody();
     ObjectMapper mapper = new ObjectMapper();
       // TODO: Return the Pokemon
-    return mapper.readValue(json, Pokemon.class);
+    var pokemonReadValue = mapper.readValue(json, Pokemon.class);
+    var pokemonTree = mapper.readTree(json);
+    return pokemonTree;
   }
 
   /**
@@ -82,16 +85,17 @@ public static void main(String[] args) {
     for (var i = 0; i < lengthOfList; i++) {
       Random rand = new Random();
       int n = rand.nextInt(1000);
-      Pokemon pokemon = getPokemonByID(String.valueOf(n+1));
-      listOfPokemon.add(pokemon);
+      JsonNode pokemon = getPokemonByID(String.valueOf(n+1));
+      listOfPokemon.add("#" + pokemon.get("id") + ": " + pokemon.get("name"));
     }
     }
 
   catch(Exception e){
     e.printStackTrace();
   }
-  for (var i : listOfPokemon){
+  System.out.println("ID : Name\n"+ "-".repeat(10));
 
+  for (Object i : listOfPokemon){
     System.out.println(i);}
   }
 }
