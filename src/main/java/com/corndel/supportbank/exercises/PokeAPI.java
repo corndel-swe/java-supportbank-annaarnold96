@@ -7,6 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.Unirest;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * This class represents a Pokemon. It uses Java's record syntax to
  * automatically generate a class with getters and utility methods.
@@ -42,15 +46,55 @@ public class PokeAPI {
     return pokemon;
   }
 
+  public static Pokemon getPokemonByID(String id) throws Exception {
+    // TODO: Create the url by appending the name to the base url
+    String url = "https://pokeapi.co/api/v2/pokemon/" + id;
+    // TODO: Make a GET request to the url
+    // Hint: Use Unirest.get()
+    var response = Unirest.get(url).header("Accept", "application/json").asString();
+    // TODO: Parse the response body into a Pokemon object
+    // Hint: Use Jackson's ObjectMapper to map the response body to Pokemon.class
+    String json = response.getBody();
+    ObjectMapper mapper = new ObjectMapper();
+    Pokemon pokemon = mapper.readValue(json, Pokemon.class);
+    // TODO: Return the Pokemon
+    return pokemon;
+  }
+
   /**
    * For debugging purposes..
    */
-  public static void main(String[] args) {
-    try {
-      Pokemon pokemon = getPokemonByName("pikachu");
-      System.out.println(pokemon);
-    } catch (Exception e) {
-      e.printStackTrace();
+//  public static void main(String[] args) {
+//    try {
+//      Pokemon pokemon = getPokemonByName("pikachu");
+//      System.out.println(pokemon);
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//  }
+//}
+
+public static void main(String[] args) {
+  List listOfPokemon = new ArrayList<>();
+
+  int lengthOfList = 5;
+
+  try {
+    for (var i = 0; i < lengthOfList; i++) {
+//      int id = (int) Math.round(Math.random());
+//      while (id > 100) {
+//        id = (int) Math.round(Math.random());
+//      }
+      Pokemon pokemon = getPokemonByID(String.valueOf(i + 50));
+      listOfPokemon.add(pokemon);
     }
+    }
+
+  catch(Exception e){
+    e.printStackTrace();
+  }
+  for (var i : listOfPokemon){
+    System.out.println(i);}
   }
 }
+
