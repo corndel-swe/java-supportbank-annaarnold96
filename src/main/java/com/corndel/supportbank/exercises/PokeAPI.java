@@ -10,6 +10,7 @@ import kong.unirest.Unirest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * This class represents a Pokemon. It uses Java's record syntax to
@@ -41,9 +42,8 @@ public class PokeAPI {
     // Hint: Use Jackson's ObjectMapper to map the response body to Pokemon.class
     String json = response.getBody();
     ObjectMapper mapper = new ObjectMapper();
-    Pokemon pokemon = mapper.readValue(json, Pokemon.class);
-    // TODO: Return the Pokemon
-    return pokemon;
+      // TODO: Return the Pokemon
+    return mapper.readValue(json, Pokemon.class);
   }
 
   public static Pokemon getPokemonByID(String id) throws Exception {
@@ -56,9 +56,8 @@ public class PokeAPI {
     // Hint: Use Jackson's ObjectMapper to map the response body to Pokemon.class
     String json = response.getBody();
     ObjectMapper mapper = new ObjectMapper();
-    Pokemon pokemon = mapper.readValue(json, Pokemon.class);
-    // TODO: Return the Pokemon
-    return pokemon;
+      // TODO: Return the Pokemon
+    return mapper.readValue(json, Pokemon.class);
   }
 
   /**
@@ -77,15 +76,13 @@ public class PokeAPI {
 public static void main(String[] args) {
   List listOfPokemon = new ArrayList<>();
 
-  int lengthOfList = 5;
+  int lengthOfList = 10;
 
   try {
     for (var i = 0; i < lengthOfList; i++) {
-//      int id = (int) Math.round(Math.random());
-//      while (id > 100) {
-//        id = (int) Math.round(Math.random());
-//      }
-      Pokemon pokemon = getPokemonByID(String.valueOf(i + 50));
+      Random rand = new Random();
+      int n = rand.nextInt(1000);
+      Pokemon pokemon = getPokemonByID(String.valueOf(n+1));
       listOfPokemon.add(pokemon);
     }
     }
@@ -94,6 +91,7 @@ public static void main(String[] args) {
     e.printStackTrace();
   }
   for (var i : listOfPokemon){
+
     System.out.println(i);}
   }
 }
