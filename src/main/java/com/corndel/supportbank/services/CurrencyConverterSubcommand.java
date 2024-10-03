@@ -3,11 +3,13 @@ package com.corndel.supportbank.services;
 import com.corndel.supportbank.models.Currency;
 import picocli.CommandLine;
 
+import java.util.HashMap;
+
 @CommandLine.Command(name = "convert")
 public class CurrencyConverterSubcommand implements Runnable{
 
     @CommandLine.Parameters(index = "0")
-    private double value;
+    private float value;
 
     @CommandLine.Parameters(index = "1")
     private String currentCurrencyType;
@@ -18,6 +20,9 @@ public class CurrencyConverterSubcommand implements Runnable{
     @Override
     public void run() {
         Currency exchange = new Currency(value);
-        System.out.println(value + " in " + currentCurrencyType + " will be " + exchange.convert(currentCurrencyType,exchangeCurrencyType) + " " + exchangeCurrencyType);
+
+        HashMap currentExchangeRate = exchange.exchangeAPI();
+
+        System.out.println(value + " in " + currentCurrencyType + " will be " + exchange.convert(currentCurrencyType,exchangeCurrencyType,currentExchangeRate) + " " + exchangeCurrencyType);
     }
 }

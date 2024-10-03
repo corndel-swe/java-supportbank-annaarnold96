@@ -1,9 +1,16 @@
 package com.corndel.supportbank.services;
 
 import com.corndel.supportbank.models.Currency;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.Unirest;
 import picocli.CommandLine;
 import io.github.cdimascio.dotenv.Dotenv;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.Consumer;
 
 @CommandLine.Command(name = "exchange")
 public class CurrencyExchangeListSubcommand implements Runnable{
@@ -13,19 +20,13 @@ public class CurrencyExchangeListSubcommand implements Runnable{
 
     @Override
     public void run() {
-        //Get the app api ID
-        Dotenv dotenv = Dotenv.load();
+        Currency exchangeList = new Currency(0);
 
-        var id = dotenv.get("OPEN_EXCHANGE_RATES_APP_ID");
-
-        var url = "https://openexchangerates.org/api/latest.json?app_id=" + id;
-
-        // run the API request
-        var response = Unirest.get(url).header("Accept", "application/json").asString();
-
-        String json = response.getBody();
-
-        System.out.println(json);
-
+        var mapOfRates = exchangeList.exchangeAPI();
+        HashMap<String, Float> rates = new HashMap<>();
+        rates = (HashMap<String, Float>) mapOfRates.get("rates");
+        System.out.println(rates);
+//        System.out.println(rates.get("EUR"));
+        //rates.forEach((key, value) -> System.out.println(key + ":" + value));
     }
 }
